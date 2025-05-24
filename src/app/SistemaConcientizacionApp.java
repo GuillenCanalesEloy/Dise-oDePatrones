@@ -7,40 +7,28 @@ package app;
 import control.FabricaRegistro;
 import control.RegistroAccionAmbiental;
 import control.RegistroReporte;
+import control.SistemaFacade;
+import java.util.Scanner;
 import modelo.AccionAmbiental;
 import modelo.Reporte;
 
 public class SistemaConcientizacionApp {
     public static void main(String[] args) {
-        System.out.println("=== Sistema de Concientización Ambiental ===");
+         System.out.println("=== Sistema de Concientización Ambiental ===");
 
-        RegistroAccionAmbiental registroAccion = (RegistroAccionAmbiental) FabricaRegistro.crearRegistro("AccionAmbiental");
-        AccionAmbiental accion = registroAccion.procesar();
+        SistemaFacade sistema = new SistemaFacade();
 
-        RegistroReporte registroReporte = (RegistroReporte) FabricaRegistro.crearRegistro("Reporte");
-        Reporte reporte = registroReporte.procesar();
+        // Paso 1: Registro
+        sistema.registrarAccionYReporte();
 
-        // Clonando la acción ambiental...
-        System.out.println("\nClonando la acción ambiental...");
-        AccionAmbiental accionClonada = accion.clone();
-        System.out.println("✅ Acción clonada: " + accionClonada);
+        // Paso 2: Contenido Educativo
+        sistema.mostrarContenidoEducativo();
 
-        // Ahora actualizo el clon y lo guardo
-        accionClonada.setTipoAccion("Acción clonada: " + accion.getTipoAccion());
-        accionClonada.setDescripcion("Clonación de la acción original.");
-        accionClonada.ejecutar(); // Guardar el clon en MySQL
-        System.out.println("✅ Acción clonada registrada correctamente.");
+        // Paso 3: Gamificación
+        sistema.mostrarGamificacion();
 
-        // Clonando el reporte...
-       System.out.println("\nClonando el reporte...");
-       Reporte reporteClonado = reporte.clone();
-       System.out.println("✅ Reporte clonado: " + reporteClonado);
+        // Podrías clonar después si deseas:
+        // sistema.clonarAccionYReporte(accion, reporte); // si guardas los objetos
 
-       // Ahora actualizo el clon y lo guardo
-      reporteClonado.setObservaciones("Clonación del reporte original.");
-      reporteClonado.setFecha(new java.util.Date());
-      reporteClonado.registrar(); // Guardar el clon en MySQL
-      System.out.println("✅ Reporte clonado registrado correctamente.");
-
-    }
+    }    
 }
