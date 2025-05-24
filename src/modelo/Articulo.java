@@ -4,10 +4,6 @@
  */
 package modelo;
 
-/**
- *
- * @author gabriel
- */
 public class Articulo implements ContenidoInformativo{
     private String titulo;
 

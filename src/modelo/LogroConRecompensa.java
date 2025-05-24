@@ -4,10 +4,7 @@
  */
 package modelo;
 
-/**
- *
- * @author gabriel
- */
+
 public class LogroConRecompensa implements ILogro{
      private ILogro logroBase;
     private String recompensa;

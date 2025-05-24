@@ -7,10 +7,7 @@ package control;
 import modelo.*;
 import java.util.Date;
 import java.util.Scanner;
-/**
- *
- * @author gabriel
- */
+
 public class SistemaFacade {
     private Scanner scanner = new Scanner(System.in);
 

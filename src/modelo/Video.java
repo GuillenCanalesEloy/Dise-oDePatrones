@@ -4,10 +4,7 @@
  */
 package modelo;
 
-/**
- *
- * @author gabriel
- */
+
 public class Video implements ContenidoInformativo{
     private String titulo;
 

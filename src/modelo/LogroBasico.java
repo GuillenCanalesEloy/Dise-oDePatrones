@@ -4,10 +4,7 @@
  */
 package modelo;
 
-/**
- *
- * @author gabriel
- */
+
 public class LogroBasico implements ILogro{
      private String nombre;
 

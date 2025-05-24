@@ -4,10 +4,7 @@
  */
 package modelo;
 
-/**
- *
- * @author gabriel
- */
+
 public interface ContenidoInformativo {
      void mostrar();
 }
