@@ -20,15 +20,13 @@ public class SistemaConcientizacionApp {
 
         // Paso 1: Registro
         sistema.registrarAccionYReporte();
-
+        
+        sistema.clonarAccionYReporte();  
         // Paso 2: Contenido Educativo
         sistema.mostrarContenidoEducativo();
 
         // Paso 3: Gamificación
         sistema.mostrarGamificacion();
-
-        // Podrías clonar después si deseas:
-        // sistema.clonarAccionYReporte(accion, reporte); // si guardas los objetos
-
+        
     }    
 }

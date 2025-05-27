@@ -10,26 +10,37 @@ import java.util.Scanner;
 
 public class SistemaFacade {
     private Scanner scanner = new Scanner(System.in);
+   
+    private AccionAmbiental ultimaAccion;
+    private Reporte ultimoReporte;
 
     public void registrarAccionYReporte() {
-        RegistroAccionAmbiental regAccion = new RegistroAccionAmbiental();
-        AccionAmbiental accion = regAccion.procesar();
+    RegistroAccionAmbiental regAccion = new RegistroAccionAmbiental();
+    ultimaAccion = regAccion.procesar();
 
-        RegistroReporte regReporte = new RegistroReporte();
-        Reporte reporte = regReporte.procesar();
+    RegistroReporte regReporte = new RegistroReporte();
+    ultimoReporte = regReporte.procesar();
     }
 
-    public void clonarAccionYReporte(AccionAmbiental accion, Reporte reporte) {
-        AccionAmbiental clonAccion = accion.clone();
-        clonAccion.setTipoAccion("Clon: " + accion.getTipoAccion());
-        clonAccion.setDescripcion("Clonación automática");
-        clonAccion.ejecutar();
-
-        Reporte clonReporte = reporte.clone();
-        clonReporte.setFecha(new Date());
-        clonReporte.setObservaciones("Clonación automática del reporte");
-        clonReporte.registrar();
+public void clonarAccionYReporte() {
+    if (ultimaAccion == null || ultimoReporte == null) {
+        System.out.println("⚠️ No hay acción o reporte para clonar.");
+        return;
     }
+
+    System.out.println("\n🔁 Clonando acción y reporte...");
+
+    AccionAmbiental clonAccion = ultimaAccion.clone();
+    clonAccion.setTipoAccion("Clon: " + ultimaAccion.getTipoAccion());
+    clonAccion.setDescripcion("Clonación automática");
+    clonAccion.ejecutar();
+
+    Reporte clonReporte = ultimoReporte.clone();
+    clonReporte.setFecha(new java.util.Date());
+    clonReporte.setObservaciones("Clonación automática del reporte");
+    clonReporte.registrar();
+    }
+
 
     public void mostrarContenidoEducativo() {
         System.out.print("Título del artículo: ");
@@ -56,6 +67,6 @@ public class SistemaFacade {
 
         ILogro logro = new LogroBasico(nombre);
         ILogro logroDecorado = new LogroConRecompensa(logro, recompensa);
-        logroDecorado.mostrar();
+        logroDecorado.mostrar(); 
     }
 }
