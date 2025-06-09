@@ -4,18 +4,52 @@
  */
 package vista;
 
+import modelo.AccionAmbiental;
+
 /**
  *
  * @author eloyg
  */
 public class vista1 extends javax.swing.JFrame {
+    
+    
 
     /**
      * Creates new form vista1
      */
     public vista1() {
         initComponents();
+        
+    btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            try {
+                String tipo = txtDescripcion.getText();
+                String descripcion = txtDescripcion1.getText();
+                 // Validar que no estén vacíos
+            if (tipo.isEmpty() || descripcion.isEmpty()) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.");
+                return;
+            }
+
+            int usuarioId = 1; // ID fijo para pruebas
+
+            AccionAmbiental accion = new AccionAmbiental(usuarioId, tipo, descripcion);
+            accion.ejecutar();
+
+            javax.swing.JOptionPane.showMessageDialog(null, "✅ Acción registrada correctamente.");
+
+            // Abrir vista 2
+            new vista2().setVisible(true);
+            dispose();
+
+             } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(null, "❌ Error: " + e.getMessage());
+            }
+            }
+      });
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

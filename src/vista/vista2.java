@@ -4,6 +4,12 @@
  */
 package vista;
 
+import modelo.Reporte;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import vista.vista1;
+import vista.vista3;
+
 /**
  *
  * @author eloyg
@@ -86,12 +92,10 @@ public class vista2 extends javax.swing.JFrame {
         jLabel3.setText("PASO 2");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel10.setText("PASO 1");
 
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("PASO 3");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -163,18 +167,14 @@ public class vista2 extends javax.swing.JFrame {
                         .addGap(28, 28, 28))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSiguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(140, 140, 140)
-                    .addComponent(btnSiguiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(457, Short.MAX_VALUE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(btnSiguiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSiguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,13 +200,10 @@ public class vista2 extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(txtDescripcion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)))
-                .addComponent(btnSiguiente2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSiguiente2)
+                    .addComponent(btnSiguiente3))
                 .addGap(28, 28, 28))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(441, Short.MAX_VALUE)
-                    .addComponent(btnSiguiente3)
-                    .addGap(24, 24, 24)))
         );
 
         pack();
@@ -214,14 +211,40 @@ public class vista2 extends javax.swing.JFrame {
 
     private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
         // TODO add your handling code here:
+         new vista1().setVisible(true);
+         this.dispose();
     }//GEN-LAST:event_btnSiguiente1ActionPerformed
 
     private void btnSiguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente2ActionPerformed
         // TODO add your handling code here:
+        String descripcion = txtDescripcion.getText();
+         String observaciones = txtDescripcion1.getText();
+         String idTexto = txtDescripcion2.getText();
+
+           if (descripcion.isEmpty() || observaciones.isEmpty() || idTexto.isEmpty()) {
+           JOptionPane.showMessageDialog(this, "❌ Todos los campos deben estar llenos.");
+            return;
+    }
+
+        try {
+           int idAccion = Integer.parseInt(idTexto);
+           Reporte reporte = new Reporte(new Date(), idAccion, observaciones);
+           reporte.registrar();
+           JOptionPane.showMessageDialog(this, "✅ Reporte registrado correctamente.");
+
+           new vista3().setVisible(true);
+           this.dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "❌ El ID debe ser un número.");
+        } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "❌ Error al registrar el reporte: " + ex.getMessage());
+      }
     }//GEN-LAST:event_btnSiguiente2ActionPerformed
 
     private void btnSiguiente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente3ActionPerformed
         // TODO add your handling code here:
+        new vista1().setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_btnSiguiente3ActionPerformed
 
     /**

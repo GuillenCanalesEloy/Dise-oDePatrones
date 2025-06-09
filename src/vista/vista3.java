@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -143,10 +145,20 @@ public class vista3 extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,
+        "✅ ¡Gracias por colaborar con el medio ambiente!\nTu registro ha sido completado con éxito.");
+    
+    // Cierra esta ventana (si es la última)
+    this.dispose();
+    
+    // Si quieres cerrar toda la app:
+    // System.exit(0);
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
         // TODO add your handling code here:
+         this.setVisible(false);
+          new vista2().setVisible(true);
     }//GEN-LAST:event_btnSiguiente1ActionPerformed
 
     /**
