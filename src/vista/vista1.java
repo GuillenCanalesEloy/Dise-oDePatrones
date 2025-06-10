@@ -85,6 +85,12 @@ public class vista1 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
         jLabel2.setText("Tipo de Accion");
 
+        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
         jLabel4.setText("Descripcion :");
 
@@ -94,7 +100,6 @@ public class vista1 extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("PASO 2");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -103,7 +108,6 @@ public class vista1 extends javax.swing.JFrame {
         jLabel10.setText("PASO 1");
 
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("PASO 3");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -191,6 +195,10 @@ public class vista1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionActionPerformed
 
     /**
      * @param args the command line arguments
