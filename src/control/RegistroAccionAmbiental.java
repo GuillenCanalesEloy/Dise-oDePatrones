@@ -23,7 +23,11 @@ public class RegistroAccionAmbiental {
 
         AccionAmbiental accion = new AccionAmbiental(usuarioId, tipoAccion, descripcion);
         accion.ejecutar();
+        
+   
+        
         return accion;
         //prueba 1
+        
     }
 }

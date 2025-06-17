@@ -8,7 +8,7 @@ import modelo.*;
 import java.util.Date;
 import java.util.Scanner;
 
-public class SistemaFacade {
+public class SistemaFacade implements ISistema {
     private Scanner scanner = new Scanner(System.in);
    
     private AccionAmbiental ultimaAccion;
@@ -64,9 +64,7 @@ public void clonarAccionYReporte() {
 
         System.out.print("Recompensa del logro: ");
         String recompensa = scanner.nextLine();
-
-        ILogro logro = new LogroBasico(nombre);
-        ILogro logroDecorado = new LogroConRecompensa(logro, recompensa);
-        logroDecorado.mostrar(); 
+        
+        
     }
 }

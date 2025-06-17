@@ -4,7 +4,12 @@
  */
 package vista;
 
+import control.ISistema;
+import control.ProxySistemaAcceso;
+import control.SistemaReal;
 import modelo.AccionAmbiental;
+import modelo.Usuario;
+
 
 /**
  *
@@ -12,14 +17,18 @@ import modelo.AccionAmbiental;
  */
 public class vista1 extends javax.swing.JFrame {
     
-    
+    private Usuario usuarioActual;
 
     /**
      * Creates new form vista1
      */
-    public vista1() {
+    public vista1(Usuario usuario) {
+    this.usuarioActual = usuario;
         initComponents();
         
+        
+      javax.swing.JOptionPane.showMessageDialog(this, "Has iniciado como: " + usuarioActual.getRol());
+
     btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             try {
@@ -33,13 +42,15 @@ public class vista1 extends javax.swing.JFrame {
 
             int usuarioId = 1; // ID fijo para pruebas
 
-            AccionAmbiental accion = new AccionAmbiental(usuarioId, tipo, descripcion);
-            accion.ejecutar();
+            ISistema sistemaReal = new SistemaReal(); // nuevo objeto real
+            ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
+
+
 
             javax.swing.JOptionPane.showMessageDialog(null, "✅ Acción registrada correctamente.");
 
             // Abrir vista 2
-            new vista2().setVisible(true);
+            new vista2(usuarioActual).setVisible(true);
             dispose();
 
              } catch (Exception e) {
@@ -230,7 +241,8 @@ public class vista1 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vista1().setVisible(true);
+                 Usuario usuario = new Usuario("Gabriel", "Administrador"); // o "Conductor", "Pasajero"
+                new vista1(usuario).setVisible(true);// Simula login con rol
             }
         });
     }

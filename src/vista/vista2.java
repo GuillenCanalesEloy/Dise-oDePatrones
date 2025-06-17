@@ -4,22 +4,31 @@
  */
 package vista;
 
+import control.ISistema;
+import control.ProxySistemaAcceso;
+import control.SistemaReal;
 import modelo.Reporte;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import modelo.Usuario;
 import vista.vista1;
 import vista.vista3;
+
 
 /**
  *
  * @author eloyg
  */
 public class vista2 extends javax.swing.JFrame {
+    
+    private Usuario usuarioActual;
 
+    
     /**
      * Creates new form vista1
      */
-    public vista2() {
+    public vista2(Usuario usuario) {
+         this.usuarioActual = usuario;
         initComponents();
     }
 
@@ -211,7 +220,7 @@ public class vista2 extends javax.swing.JFrame {
 
     private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
         // TODO add your handling code here:
-         new vista1().setVisible(true);
+         new vista1(usuarioActual).setVisible(true);
          this.dispose();
     }//GEN-LAST:event_btnSiguiente1ActionPerformed
 
@@ -230,9 +239,14 @@ public class vista2 extends javax.swing.JFrame {
            int idAccion = Integer.parseInt(idTexto);
            Reporte reporte = new Reporte(new Date(), idAccion, observaciones);
            reporte.registrar();
+           
+            ISistema sistemaReal = new SistemaReal();
+    ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
+    proxy.registrarAccionYReporte(); // Esto valida el acceso según el rol
+
            JOptionPane.showMessageDialog(this, "✅ Reporte registrado correctamente.");
 
-           new vista3().setVisible(true);
+           new vista3(usuarioActual).setVisible(true);
            this.dispose();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "❌ El ID debe ser un número.");
@@ -243,7 +257,7 @@ public class vista2 extends javax.swing.JFrame {
 
     private void btnSiguiente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente3ActionPerformed
         // TODO add your handling code here:
-        new vista1().setVisible(true);
+        new vista1(usuarioActual).setVisible(true);
     this.dispose();
     }//GEN-LAST:event_btnSiguiente3ActionPerformed
 
@@ -278,7 +292,8 @@ public class vista2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new vista2().setVisible(true);
+                Usuario usuario = new Usuario("Gabriel", "Conductor"); // o "Administrador", "Pasajero"
+                new vista2(usuario).setVisible(true);
             }
         });
     }
