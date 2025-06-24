@@ -4,7 +4,9 @@
  */
 package vista;
 
+import control.GestorEventos;
 import control.ISistema;
+import control.ModuloRecompensas;
 import control.ProxySistemaAcceso;
 import control.SistemaReal;
 import modelo.AccionAmbiental;
@@ -18,6 +20,7 @@ import modelo.Usuario;
 public class vista1 extends javax.swing.JFrame {
     
     private Usuario usuarioActual;
+    
 
     /**
      * Creates new form vista1
@@ -28,6 +31,8 @@ public class vista1 extends javax.swing.JFrame {
         
         
       javax.swing.JOptionPane.showMessageDialog(this, "Has iniciado como: " + usuarioActual.getRol());
+       // Registrar observer solo una vez al iniciar
+        GestorEventos.getInstancia().agregarObservador(new ModuloRecompensas());
 
     btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -40,10 +45,11 @@ public class vista1 extends javax.swing.JFrame {
                 return;
             }
 
-            int usuarioId = 1; // ID fijo para pruebas
+         int usuarioId = usuarioActual.getId(); // ✔ usa el ID del usuario que inició sesión
 
-            ISistema sistemaReal = new SistemaReal(); // nuevo objeto real
+            ISistema sistemaReal = new SistemaReal(usuarioActual); // nuevo objeto real
             ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
+
 
 
 
@@ -237,11 +243,21 @@ public class vista1 extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(vista1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                 Usuario usuario = new Usuario("Gabriel", "Administrador"); // o "Conductor", "Pasajero"
+                 Usuario usuario = new Usuario(1,"Gabriel", "Administrador"); // o "Conductor", "Pasajero"
                 new vista1(usuario).setVisible(true);// Simula login con rol
             }
         });

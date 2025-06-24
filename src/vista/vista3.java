@@ -3,8 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
+import control.IComando;
 import control.ISistema;
 import control.ProxySistemaAcceso;
+import control.RegistrarContenidoCommand;
 import control.SistemaReal;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
@@ -150,12 +152,16 @@ public class vista3 extends javax.swing.JFrame {
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
         // TODO add your handling code here:
-        ISistema sistemaReal = new SistemaReal();
+        ISistema sistemaReal = new SistemaReal(usuarioActual);
          ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
-         proxy.registrarAccionYReporte(); // Esto valida el acceso según el rol
+         proxy.mostrarGamificacion();
+         IComando comando = new RegistrarContenidoCommand(proxy);
+comando.ejecutar(); // ✅ ejecutar al final
 
-        JOptionPane.showMessageDialog(this,
-        "✅ ¡Gracias por colaborar con el medio ambiente!\nTu registro ha sido completado con éxito.");
+
+       JOptionPane.showMessageDialog(this,
+    "✅ ¡Gracias por colaborar con el medio ambiente!\nTu acción y reporte fueron registrados.\n🎁 Se han actualizado tus recompensas.");
+
     
     // Cierra esta ventana (si es la última)
     this.dispose();
@@ -201,11 +207,13 @@ public class vista3 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Usuario mockUsuario = new Usuario("Gabriel", "Pasajero"); // Cambia según necesites
+                Usuario mockUsuario = new Usuario(1,"Gabriel", "Pasajero"); // Cambia según necesites
                 new vista3(mockUsuario).setVisible(true);
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSiguiente;

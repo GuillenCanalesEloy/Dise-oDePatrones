@@ -240,7 +240,7 @@ public class vista2 extends javax.swing.JFrame {
            Reporte reporte = new Reporte(new Date(), idAccion, observaciones);
            reporte.registrar();
            
-            ISistema sistemaReal = new SistemaReal();
+            ISistema sistemaReal = new SistemaReal(usuarioActual);
     ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
     proxy.registrarAccionYReporte(); // Esto valida el acceso según el rol
 
@@ -292,7 +292,7 @@ public class vista2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Usuario usuario = new Usuario("Gabriel", "Conductor"); // o "Administrador", "Pasajero"
+                Usuario usuario = new Usuario(1,"Gabriel", "Conductor"); // o "Administrador", "Pasajero"
                 new vista2(usuario).setVisible(true);
             }
         });
