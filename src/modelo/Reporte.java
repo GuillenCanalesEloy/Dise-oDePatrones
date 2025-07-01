@@ -4,43 +4,51 @@ package modelo;
 import baseDatos.ConexionBD;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.util.Date;
 
 public class Reporte implements Cloneable {
-    private Date fecha;
-    private int idAccion;
-    private String observaciones;
+    private int usuarioId;
+    private String nombre;
+    private String descripcion;
 
-    public Reporte(Date fecha, int idAccion, String observaciones) {
-        this.fecha = fecha;
-        this.idAccion = idAccion;
-        this.observaciones = observaciones;
-    }
-    //aaa
-
-    public Date getFecha() {
-        return fecha;
+    public Reporte(int usuarioId, String nombre, String descripcion) {
+        this.usuarioId = usuarioId;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    // Getters y Setters
+    public int getUsuarioId() {
+        return usuarioId;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public String getNombre() {
+        return nombre;
     }
- 
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    // Método para registrar con el procedimiento actualizado
     public void registrar() {
         try {
             Connection con = ConexionBD.getInstancia().getConexion();
             CallableStatement stmt = con.prepareCall("CALL sp_insertar_reporte(?, ?, ?)");
-            stmt.setInt(1, idAccion);
-            stmt.setDate(2, new java.sql.Date(fecha.getTime()));
-            stmt.setString(3, observaciones);
+            stmt.setInt(1, usuarioId);
+            stmt.setString(2, nombre);
+            stmt.setString(3, descripcion);
             stmt.execute();
             System.out.println("✅ Reporte registrado correctamente.");
         } catch (Exception e) {

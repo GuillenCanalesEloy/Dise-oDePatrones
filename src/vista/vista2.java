@@ -10,6 +10,7 @@ import control.SistemaReal;
 import modelo.Reporte;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import modelo.AccionAmbiental;
 import modelo.Usuario;
 import vista.vista1;
 import vista.vista3;
@@ -22,13 +23,14 @@ import vista.vista3;
 public class vista2 extends javax.swing.JFrame {
     
     private Usuario usuarioActual;
-
+    
     
     /**
      * Creates new form vista1
      */
     public vista2(Usuario usuario) {
          this.usuarioActual = usuario;
+          
         initComponents();
     }
 
@@ -178,7 +180,7 @@ public class vista2 extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(btnSiguiente3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -218,6 +220,7 @@ public class vista2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void btnSiguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente1ActionPerformed
         // TODO add your handling code here:
          new vista1(usuarioActual).setVisible(true);
@@ -226,26 +229,29 @@ public class vista2 extends javax.swing.JFrame {
 
     private void btnSiguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente2ActionPerformed
         // TODO add your handling code here:
-        String descripcion = txtDescripcion.getText();
-         String observaciones = txtDescripcion1.getText();
+        String nombre = txtDescripcion.getText();
+         String descripcion = txtDescripcion1.getText();
          String idTexto = txtDescripcion2.getText();
 
-           if (descripcion.isEmpty() || observaciones.isEmpty() || idTexto.isEmpty()) {
+           if (descripcion.isEmpty() || descripcion.isEmpty() || idTexto.isEmpty()) {
            JOptionPane.showMessageDialog(this, "❌ Todos los campos deben estar llenos.");
             return;
     }
 
         try {
+            int usuarioId = usuarioActual.getId();  
            int idAccion = Integer.parseInt(idTexto);
-           Reporte reporte = new Reporte(new Date(), idAccion, observaciones);
+           Reporte reporte = new Reporte(usuarioId, nombre, descripcion);
            reporte.registrar();
-           
+            JOptionPane.showMessageDialog(this, "✅ Reporte registrado correctamente.");
+            
             ISistema sistemaReal = new SistemaReal(usuarioActual);
-    ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
-    proxy.registrarAccionYReporte(); // Esto valida el acceso según el rol
+           ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
+           proxy.registrarAccionYReporte(); // Esto valida el acceso según el rol
+           proxy.clonarAccionYReporte();
+           
 
-           JOptionPane.showMessageDialog(this, "✅ Reporte registrado correctamente.");
-
+         
            new vista3(usuarioActual).setVisible(true);
            this.dispose();
             } catch (NumberFormatException ex) {
@@ -255,6 +261,7 @@ public class vista2 extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_btnSiguiente2ActionPerformed
 
+    
     private void btnSiguiente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguiente3ActionPerformed
         // TODO add your handling code here:
         new vista1(usuarioActual).setVisible(true);

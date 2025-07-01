@@ -12,12 +12,19 @@ public class AccionAmbiental implements Cloneable {
     private int usuarioId;
     private String tipoAccion;
     private String descripcion;
+    
 
     public AccionAmbiental(int usuarioId, String tipoAccion, String descripcion) {
         this.usuarioId = usuarioId;
         this.tipoAccion = tipoAccion;
         this.descripcion = descripcion;
     }
+    
+    public int getUsuarioId() {
+    return usuarioId;
+}
+
+    
 
     public String getTipoAccion() {
         return tipoAccion;
@@ -57,5 +64,7 @@ public class AccionAmbiental implements Cloneable {
             throw new AssertionError(); // No debería ocurrir
         }
     } 
+
+
 }
 

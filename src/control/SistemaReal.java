@@ -11,6 +11,9 @@ import java.util.Date;
 
 public class SistemaReal implements ISistema {
     private Usuario usuarioActual;
+   private AccionAmbiental ultimaAccion;
+private Reporte ultimoReporte;
+
 
 public SistemaReal(Usuario usuario) {
     this.usuarioActual = usuario;
@@ -18,11 +21,13 @@ public SistemaReal(Usuario usuario) {
 
     @Override
     public void registrarAccionYReporte() {
+        
         JOptionPane.showMessageDialog(null, "✅ Acción y reporte registrados en el sistema real.");
     }
 
     @Override
     public void clonarAccionYReporte() {
+ 
         JOptionPane.showMessageDialog(null, "🔁 Acción y reporte clonados correctamente.");
     }
 
@@ -58,7 +63,7 @@ public SistemaReal(Usuario usuario) {
         case "reciclaje":
             puntos = 30;
             break;
-        case "plantación de árboles":
+        case "plantacion de arboles":
             puntos = 50;
             break;
         case "limpieza de playas":

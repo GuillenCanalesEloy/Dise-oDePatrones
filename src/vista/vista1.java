@@ -4,12 +4,16 @@
  */
 package vista;
 
+
 import control.GestorEventos;
 import control.ISistema;
 import control.ModuloRecompensas;
 import control.ProxySistemaAcceso;
 import control.SistemaReal;
+import javax.swing.JOptionPane;
+
 import modelo.AccionAmbiental;
+
 import modelo.Usuario;
 
 
@@ -22,6 +26,7 @@ public class vista1 extends javax.swing.JFrame {
     private Usuario usuarioActual;
     
 
+
     /**
      * Creates new form vista1
      */
@@ -30,7 +35,7 @@ public class vista1 extends javax.swing.JFrame {
         initComponents();
         
         
-      javax.swing.JOptionPane.showMessageDialog(this, "Has iniciado como: " + usuarioActual.getRol());
+      javax.swing.JOptionPane.showMessageDialog(null, "Has iniciado como: " + usuarioActual.getRol());
        // Registrar observer solo una vez al iniciar
         GestorEventos.getInstancia().agregarObservador(new ModuloRecompensas());
 
@@ -44,16 +49,19 @@ public class vista1 extends javax.swing.JFrame {
                 javax.swing.JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.");
                 return;
             }
+            
+            
 
          int usuarioId = usuarioActual.getId(); // ✔ usa el ID del usuario que inició sesión
 
-            ISistema sistemaReal = new SistemaReal(usuarioActual); // nuevo objeto real
-            ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
+             /* ---------- REGISTRAR ACCIÓN (Command) ---------- */
+        AccionAmbiental accion = new AccionAmbiental(usuarioId, tipo, descripcion);
+        accion.ejecutar();                                 // ← inserta en BD
+        
 
+        
+        JOptionPane.showMessageDialog(null, "✅ Acción registrada correctamente.");
 
-
-
-            javax.swing.JOptionPane.showMessageDialog(null, "✅ Acción registrada correctamente.");
 
             // Abrir vista 2
             new vista2(usuarioActual).setVisible(true);

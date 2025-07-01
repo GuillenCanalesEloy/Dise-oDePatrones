@@ -23,6 +23,7 @@ public class vista3 extends javax.swing.JFrame {
      */
     private Usuario usuarioActual;
     
+    
     public vista3(Usuario usuarioActual) {
       this.usuarioActual = usuarioActual;     
        initComponents();

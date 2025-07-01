@@ -5,7 +5,6 @@
 package control;
 
 import modelo.Reporte;
-import java.util.Date;
 import java.util.Scanner;
 
 public class RegistroReporte {
@@ -13,14 +12,16 @@ public class RegistroReporte {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nIngrese los detalles del reporte:");
 
-        System.out.print("ID de la Acción: ");
-        int idAccion = Integer.parseInt(scanner.nextLine());
+        System.out.print("ID del Usuario: ");
+        int usuarioId = Integer.parseInt(scanner.nextLine());
+
+        System.out.print("Nombre del Reporte: ");
+        String nombre = scanner.nextLine();
 
         System.out.print("Descripción del Reporte: ");
         String descripcion = scanner.nextLine();
 
-        Date fecha = new Date(); // Fecha actual
-        Reporte reporte = new Reporte(fecha, idAccion, descripcion);
+        Reporte reporte = new Reporte(usuarioId, nombre, descripcion);
         reporte.registrar();
         return reporte;
     }

@@ -8,6 +8,7 @@ import modelo.AccionAmbiental;
 import java.util.Scanner;
 
 public class RegistroAccionAmbiental {
+    public static AccionAmbiental ultimaAccionRegistrada;
     public AccionAmbiental procesar() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nIngrese los detalles de la acción ambiental:");

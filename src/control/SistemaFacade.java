@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package control;
-
 import modelo.*;
-import java.util.Date;
 import java.util.Scanner;
 
 public class SistemaFacade implements ISistema {
@@ -14,34 +12,51 @@ public class SistemaFacade implements ISistema {
     private AccionAmbiental ultimaAccion;
     private Reporte ultimoReporte;
 
+    @Override
     public void registrarAccionYReporte() {
-    RegistroAccionAmbiental regAccion = new RegistroAccionAmbiental();
-    ultimaAccion = regAccion.procesar();
+        // Registrar Acción Ambiental
+        RegistroAccionAmbiental regAccion = new RegistroAccionAmbiental();
+        ultimaAccion = regAccion.procesar();
 
-    RegistroReporte regReporte = new RegistroReporte();
-    ultimoReporte = regReporte.procesar();
+        // Registrar Reporte
+        System.out.println("\nIngrese los detalles del reporte:");
+
+        int usuarioId = ultimaAccion.getUsuarioId(); // Usamos mismo usuario que creó la acción
+        System.out.print("Nombre del Reporte: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Descripción del Reporte: ");
+        String descripcion = scanner.nextLine();
+
+        Reporte reporte = new Reporte(usuarioId, nombre, descripcion);
+        reporte.registrar();
+
+        ultimoReporte = reporte;
     }
 
-public void clonarAccionYReporte() {
-    if (ultimaAccion == null || ultimoReporte == null) {
-        System.out.println("⚠️ No hay acción o reporte para clonar.");
-        return;
+    @Override
+    public void clonarAccionYReporte() {
+        if (ultimaAccion == null || ultimoReporte == null) {
+            System.out.println("⚠️ No hay acción o reporte para clonar.");
+            return;
+        }
+
+        System.out.println("\n🔁 Clonando acción y reporte...");
+
+        // Clonar acción
+        AccionAmbiental clonAccion = ultimaAccion.clone();
+        clonAccion.setTipoAccion("Clon: " + ultimaAccion.getTipoAccion());
+        clonAccion.setDescripcion("Clonación automática");
+        clonAccion.ejecutar();
+
+        // Clonar reporte
+        Reporte clonReporte = ultimoReporte.clone();
+        clonReporte.setNombre("Clon: " + ultimoReporte.getNombre());
+        clonReporte.setDescripcion("Clonación automática");
+        clonReporte.registrar();
     }
 
-    System.out.println("\n🔁 Clonando acción y reporte...");
-
-    AccionAmbiental clonAccion = ultimaAccion.clone();
-    clonAccion.setTipoAccion("Clon: " + ultimaAccion.getTipoAccion());
-    clonAccion.setDescripcion("Clonación automática");
-    clonAccion.ejecutar();
-
-    Reporte clonReporte = ultimoReporte.clone();
-    clonReporte.setFecha(new java.util.Date());
-    clonReporte.setObservaciones("Clonación automática del reporte");
-    clonReporte.registrar();
-    }
-
-
+    @Override
     public void mostrarContenidoEducativo() {
         System.out.print("Título del artículo: ");
         String tituloArticulo = scanner.nextLine();
@@ -58,13 +73,14 @@ public void clonarAccionYReporte() {
         paquete.mostrar();
     }
 
+    @Override
     public void mostrarGamificacion() {
         System.out.print("Nombre del logro: ");
         String nombre = scanner.nextLine();
 
         System.out.print("Recompensa del logro: ");
         String recompensa = scanner.nextLine();
-        
-        
+
+        System.out.println("🏆 Logro registrado: " + nombre + " con recompensa " + recompensa);
     }
 }
