@@ -33,11 +33,17 @@ public SistemaReal(Usuario usuario) {
 
     @Override
     public void mostrarContenidoEducativo() {
-        String tituloArticulo = JOptionPane.showInputDialog(null, "Título del artículo:");
-    String tituloVideo = JOptionPane.showInputDialog(null, "Título del video:");
+       // En SistemaReal.java
+String tituloArticulo = JOptionPane.showInputDialog(null, "Título del artículo:");
+String urlArticulo = JOptionPane.showInputDialog(null, "Enlace del artículo (URL):");
 
-    Articulo art = new Articulo(tituloArticulo);
-    Video vid = new Video(tituloVideo);
+String tituloVideo = JOptionPane.showInputDialog(null, "Título del video:");
+String urlVideo = JOptionPane.showInputDialog(null, "Enlace del video (URL):");
+
+
+   Articulo art = new Articulo(tituloArticulo, urlArticulo);
+        Video vid = new Video(tituloVideo, urlVideo);
+
 
     PaqueteContenido paquete = new PaqueteContenido();
     paquete.agregar(art);
@@ -47,8 +53,9 @@ public SistemaReal(Usuario usuario) {
     ContenidoDAO dao = new ContenidoDAO();
     Date fechaHoy = new Date();
 
-    dao.insertarContenido("Articulo", tituloArticulo, fechaHoy, usuarioActual.getId());
-    dao.insertarContenido("Video", tituloVideo, fechaHoy, usuarioActual.getId());
+    dao.insertarContenido("Articulo", tituloArticulo, urlArticulo, fechaHoy, usuarioActual.getId());
+dao.insertarContenido("Video", tituloVideo, urlVideo, fechaHoy, usuarioActual.getId());
+
 
     JOptionPane.showMessageDialog(null, "📥 Contenido educativo registrado en la base de datos.");
 }

@@ -6,14 +6,16 @@ package modelo;
 
 
 public class Video implements ContenidoInformativo{
-    private String titulo;
+     private String titulo;
+    private String url;
 
-    public Video(String titulo) {
+    public Video(String titulo, String url) {
         this.titulo = titulo;
+        this.url = url;
     }
 
     @Override
     public void mostrar() {
-        System.out.println("🎥 Video: " + titulo);
+        System.out.println("🎥 Video: " + titulo + " 👉 " + url);
     }
 }

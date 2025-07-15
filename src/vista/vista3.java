@@ -10,6 +10,8 @@ import control.RegistrarContenidoCommand;
 import control.SistemaReal;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
+import java.awt.Desktop;
+import java.net.URI;
 
 
 /**
@@ -157,7 +159,24 @@ public class vista3 extends javax.swing.JFrame {
          ProxySistemaAcceso proxy = new ProxySistemaAcceso(usuarioActual.getRol(), sistemaReal);
          proxy.mostrarGamificacion();
          IComando comando = new RegistrarContenidoCommand(proxy);
-comando.ejecutar(); // ✅ ejecutar al final
+         comando.ejecutar(); // ✅ ejecutar al final
+    try {
+    String urlArticulo = JOptionPane.showInputDialog(this, "🔗 Ingresa el enlace del artículo:");
+    String urlVideo = JOptionPane.showInputDialog(this, "🎥 Ingresa el enlace del video:");
+
+    Desktop desktop = Desktop.getDesktop();
+    if (urlArticulo != null && !urlArticulo.isEmpty()) {
+        desktop.browse(new URI(urlArticulo));
+    }
+    if (urlVideo != null && !urlVideo.isEmpty()) {
+        desktop.browse(new URI(urlVideo));
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "❌ No se pudo abrir el enlace.");
+}
+
+    
 
 
        JOptionPane.showMessageDialog(this,

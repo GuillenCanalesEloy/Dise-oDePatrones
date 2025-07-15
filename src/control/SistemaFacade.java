@@ -57,21 +57,28 @@ public class SistemaFacade implements ISistema {
     }
 
     @Override
-    public void mostrarContenidoEducativo() {
-        System.out.print("Título del artículo: ");
-        String tituloArticulo = scanner.nextLine();
+public void mostrarContenidoEducativo() {
+    System.out.print("Título del artículo: ");
+    String tituloArticulo = scanner.nextLine();
 
-        System.out.print("Título del video: ");
-        String tituloVideo = scanner.nextLine();
+    System.out.print("URL del artículo: ");
+    String urlArticulo = scanner.nextLine();
 
-        Articulo art = new Articulo(tituloArticulo);
-        Video vid = new Video(tituloVideo);
+    System.out.print("Título del video: ");
+    String tituloVideo = scanner.nextLine();
 
-        PaqueteContenido paquete = new PaqueteContenido();
-        paquete.agregar(art);
-        paquete.agregar(vid);
-        paquete.mostrar();
-    }
+    System.out.print("URL del video: ");
+    String urlVideo = scanner.nextLine();
+
+    Articulo art = new Articulo(tituloArticulo, urlArticulo);
+    Video vid = new Video(tituloVideo, urlVideo);
+
+    PaqueteContenido paquete = new PaqueteContenido();
+    paquete.agregar(art);
+    paquete.agregar(vid);
+    paquete.mostrar();
+}
+
 
     @Override
     public void mostrarGamificacion() {
